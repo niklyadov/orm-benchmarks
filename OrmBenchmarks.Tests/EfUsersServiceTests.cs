@@ -1,7 +1,5 @@
-using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using OrmBenchmarks.EF;
 using OrmBenchmarks.EF.Repos;
 using OrmBenchmarks.EF.Services;
