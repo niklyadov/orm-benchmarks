@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using OrmBenchmarks.EF;
 using OrmBenchmarks.EF.Repos;
 using OrmBenchmarks.EF.Services;
@@ -17,6 +18,7 @@ public class EfUsersServiceTests
     
     public EfUsersServiceTests()
     {
+        //_context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         var repository = new UsersRepository(_context);
         _usersService = new UsersService(repository);
     }
@@ -80,21 +82,5 @@ public class EfUsersServiceTests
         Assert.True(deletedUserInDb!.IsDeleted);
 
         return deletedUser;
-    }
-    
-    [Fact]
-    public async Task<User> DeleteWithTracking()
-    {
-        var randomUser = await _usersService.AddRandomAsync();
-        await _usersService.DeleteAsync(randomUser);
-        
-        var deletedUserInDb = _context.Users.FirstOrDefault(u => u.Id == randomUser.Id);
-        
-        Assert.True(randomUser.IsDeleted);
-        Assert.True(deletedUserInDb!.IsDeleted);
-        
-        Assert.NotNull(deletedUserInDb);
-
-        return randomUser;
     }
 }

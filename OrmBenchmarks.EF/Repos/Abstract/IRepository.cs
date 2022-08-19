@@ -11,11 +11,10 @@ public interface IRepository<T> where T : class, IEntity
     Task<List<T>> Add(List<T> entities);
     Task<T> Update(T entity);
     Task<List<T>> Update(List<T> entities);
+    Task<T> AddOrUpdate(T entity);
     Task<int> Save(T entity);
-    Task<T> DeleteById(long id);
     Task<T> Delete(T entity);
     Task<List<T>> Delete(List<T> entities);
-    Task<T> RestoreById(long id);
     Task<T> Restore(T entity);
     Task<List<T>> Restore(List<T> entities);
 }

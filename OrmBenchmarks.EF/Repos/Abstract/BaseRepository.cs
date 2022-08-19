@@ -68,24 +68,19 @@ public abstract class BaseRepository<TEntity, TContext> : IRepository<TEntity>, 
         return entities;
     }
 
+    public async Task<TEntity> AddOrUpdate(TEntity entity)
+    {
+        if (entity.Id > 0 && await GetById(entity.Id) != null)
+            return await Update(entity);
+        
+        return await Add(entity);
+    }
+
     public virtual async Task<int> Save(TEntity entity)
     {
         return await _dbContext.SaveChangesAsync();
     }
-
-    public virtual async Task<TEntity> DeleteById(long id)
-    {
-        var entity = await _dbContext.Set<TEntity>().FindAsync(id);
-
-        if (entity == null)
-            throw new Exception($"Entity with id {id} is not found!");
-
-        entity.IsDeleted = true;
-        entity.DeletedDateTime = DateTime.UtcNow;
-
-        return await Update(entity);
-    }
-
+    
     public virtual async Task<TEntity> Delete(TEntity entity)
     {
         if (entity == null)
@@ -112,19 +107,6 @@ public abstract class BaseRepository<TEntity, TContext> : IRepository<TEntity>, 
         }
 
         return await Update(entities);
-    }
-
-    public virtual async Task<TEntity> RestoreById(long id)
-    {
-        var entity = await _dbContext.Set<TEntity>().FindAsync(id);
-
-        if (entity == null)
-            throw new Exception($"Entity with id {id} is not found!");
-
-        entity.IsDeleted = false;
-        entity.DeletedDateTime = null;
-
-        return await Update(entity);
     }
 
     public virtual async Task<TEntity> Restore(TEntity entity)
