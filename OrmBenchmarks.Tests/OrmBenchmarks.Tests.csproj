@@ -21,6 +21,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\OrmBenchmarks.Dapper\OrmBenchmarks.Dapper.csproj" />
       <ProjectReference Include="..\OrmBenchmarks.EF\OrmBenchmarks.EF.csproj" />
       <ProjectReference Include="..\OrmBenchmarks\OrmBenchmarks.csproj" />
     </ItemGroup>
