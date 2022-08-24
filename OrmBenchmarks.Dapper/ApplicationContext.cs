@@ -1,33 +1,20 @@
 using System.Data;
+using Microsoft.Data.SqlClient;
 using Microsoft.Data.Sqlite;
+using Microsoft.Extensions.Configuration;
 
 namespace OrmBenchmarks.Dapper;
 
-public class ApplicationContext : IDisposable
+public class ApplicationContext
 {
-    public readonly IDbConnection DbConnection;
-    
-    public ApplicationContext()
+    private readonly IConfiguration _configuration;
+
+    public ApplicationContext(IConfiguration configuration)
     {
-        DbConnection = new SqliteConnection("Data Source=dapper.db");
-        DbConnection.Open();
+        _configuration = configuration;
+        
     }
 
-    public void RecreateTables()
-    {
-
-        var cmd = DbConnection.CreateCommand();
-
-        cmd.CommandText = "DROP TABLE IF EXISTS users";
-        cmd.ExecuteNonQuery();
-
-        //cmd.CommandText = @"CREATE TABLE users(id INTEGER PRIMARY KEY, name TEXT, age INT)";
-        //cmd.ExecuteNonQuery();
-    }
-    
-    public void Dispose()
-    {
-        DbConnection.Close();
-        DbConnection.Dispose();
-    }
+    public IDbConnection CreateMasterConnection()
+        => new SqliteConnection(_configuration.GetConnectionString("MasterConnection"));
 }
