@@ -3,9 +3,9 @@ using OrmBenchmarks.Entities;
 
 namespace OrmBenchmarks.EF.Repos;
 
-public class UsersRepository : BaseRepository<User, ApplicationContext>
+public class UsersRepository : BaseRepository<User, EfApplicationContext>
 {
-    public UsersRepository(ApplicationContext context) : base(context)
+    public UsersRepository(EfApplicationContext context) : base(context)
     {
     }
 }

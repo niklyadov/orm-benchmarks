@@ -1,26 +1,35 @@
+using OrmBenchmarks.Dapper.Repos;
 using OrmBenchmarks.Entities;
 using OrmBenchmarks.Services;
 
 namespace OrmBenchmarks.Dapper.Services;
 
-public class UsersService : IUsersService
+public class UsersService : AUsersService
 {
-    public Task<User> AddRandomAsync()
+    private readonly UsersRepository _repository;
+    public UsersService(UsersRepository repository)
+    {
+        _repository = repository;
+    }
+    
+    public override async Task<User> AddRandomAsync()
+    {
+        var user = GenerateRandomUser();
+
+        return await _repository.Add(user);
+    }
+
+    public override Task<User?> GetByIdAsync(long id)
     {
         throw new NotImplementedException();
     }
 
-    public Task<User?> GetByIdAsync(long id)
+    public override Task<User> UpdateAsync(User user)
     {
         throw new NotImplementedException();
     }
 
-    public Task<User> UpdateAsync(User user)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<User> DeleteAsync(User user)
+    public override Task<User> DeleteAsync(User user)
     {
         throw new NotImplementedException();
     }

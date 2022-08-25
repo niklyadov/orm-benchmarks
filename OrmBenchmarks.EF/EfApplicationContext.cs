@@ -3,11 +3,11 @@ using OrmBenchmarks.Entities;
 
 namespace OrmBenchmarks.EF;
 
-public class ApplicationContext : DbContext
+public class EfApplicationContext : DbContext
 {
     public DbSet<User> Users { get; set; } = null!;
 
-    public ApplicationContext()
+    public EfApplicationContext()
     {
         Database.EnsureDeleted();
         Database.EnsureCreated();

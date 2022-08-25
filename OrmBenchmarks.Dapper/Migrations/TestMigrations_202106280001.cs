@@ -8,21 +8,15 @@ public class TestMigrations_202106280001 : Migration
 {
     public override void Down()
     {
-        Delete.Table("Employees");
-        Delete.Table("Companies");
+        Delete.Table("Users");
     }
     public override void Up()
     {
-        Create.Table("Companies")
-            .WithColumn("Id").AsGuid().NotNullable().PrimaryKey()
-            .WithColumn("Name").AsString(50).NotNullable()
-            .WithColumn("Address").AsString(60).NotNullable()
-            .WithColumn("Country").AsString(50).NotNullable();
-        Create.Table("Employees")
-            .WithColumn("Id").AsGuid().NotNullable().PrimaryKey()
-            .WithColumn("Name").AsString(50).NotNullable()
-            .WithColumn("Age").AsInt32().NotNullable()
-            .WithColumn("Position").AsString(50).NotNullable()
-            .WithColumn("CompanyId").AsGuid().NotNullable().ForeignKey("Companies", "Id");
+        Create.Table("Users")
+            .WithColumn("Id").AsInt64().NotNullable().PrimaryKey()
+            .WithColumn("IsDeleted").AsBoolean().NotNullable()
+            .WithColumn("DeletedDateTime").AsDateTime().Nullable()
+            .WithColumn("Name").AsString(255).NotNullable()
+            .WithColumn("Age").AsInt32().NotNullable();
     }
 }

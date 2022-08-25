@@ -5,7 +5,7 @@ namespace OrmBenchmarks.EF.Repos.Abstract;
 
 public abstract class BaseRepository<TEntity, TContext> : IRepository<TEntity>, IDisposable
     where TEntity : class, IEntity
-    where TContext : ApplicationContext
+    where TContext : EfApplicationContext
 {
     private readonly TContext _dbContext;
 

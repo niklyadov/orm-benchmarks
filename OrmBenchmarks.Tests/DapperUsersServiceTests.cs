@@ -1,27 +1,37 @@
 ﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using OrmBenchmarks.Dapper;
+using OrmBenchmarks.Dapper.Repos;
 using OrmBenchmarks.Dapper.Services;
+using OrmBenchmarks.EF;
 using OrmBenchmarks.Entities;
 using OrmBenchmarks.Services;
 using Xunit;
+using UsersService = OrmBenchmarks.Dapper.Services.UsersService;
 
 namespace OrmBenchmarks.Tests;
 
 public class DapperUsersServiceTests
 {
-    private readonly IUsersService _usersService;
+    private readonly AUsersService _aUsersService;
+    //private readonly EfApplicationContext _contextEf = new();
     
     public DapperUsersServiceTests()
     {
-        _usersService = new UsersService();
+        var repository = new UsersRepository(new DapperApplicationContext());
+        _aUsersService = new UsersService(repository);
     }
     
     [Fact]
-    public void AddRandom()
+    public async Task AddRandom()
     {
-        Assert.Throws<NotImplementedException>(() =>
-        {
-            _usersService.AddRandomAsync();
-        });
+        var randomUser = await _aUsersService.AddRandomAsync();
+        //var userInDb = _contextEf.Users.FirstOrDefault(u => u.Id == randomUser.Id);
+        
+        Assert.NotNull(randomUser);
+        //Assert.NotNull(userInDb);
+        //Assert.Equal(userInDb!.Name, randomUser.Name);
     }
 
     [Fact]
@@ -29,7 +39,7 @@ public class DapperUsersServiceTests
     {
         Assert.Throws<NotImplementedException>(() =>
         {
-            _usersService.GetByIdAsync(0);
+            _aUsersService.GetByIdAsync(0);
         });
     }
 
@@ -38,7 +48,7 @@ public class DapperUsersServiceTests
     {
         Assert.Throws<NotImplementedException>(() =>
         {
-            _usersService.UpdateAsync(new User());
+            _aUsersService.UpdateAsync(new User());
         });
     }
 
@@ -47,7 +57,7 @@ public class DapperUsersServiceTests
     {
         Assert.Throws<NotImplementedException>(() =>
         {
-            _usersService.DeleteAsync(new User());
+            _aUsersService.DeleteAsync(new User());
         });
     }
 }

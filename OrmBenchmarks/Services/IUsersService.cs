@@ -2,10 +2,22 @@ using OrmBenchmarks.Entities;
 
 namespace OrmBenchmarks.Services;
 
-public interface IUsersService
+public abstract class AUsersService
 {
-    public Task<User> AddRandomAsync();
-    public Task<User?> GetByIdAsync(long id);
-    public Task<User> UpdateAsync(User user);
-    public Task<User> DeleteAsync(User user);
+    public abstract Task<User> AddRandomAsync();
+    public abstract Task<User?> GetByIdAsync(long id);
+    public abstract Task<User> UpdateAsync(User user);
+    public abstract Task<User> DeleteAsync(User user);
+    
+    protected User GenerateRandomUser()
+    {
+        var random = new Random();
+
+        return new User
+        {
+            Age = (uint)random.Next(100),
+            Name = Guid.NewGuid().ToString()
+        };
+    }
+
 }
