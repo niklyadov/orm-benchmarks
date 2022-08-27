@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrmBenchmarks.EF", "OrmBenc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrmBenchmarks.Dapper", "OrmBenchmarks.Dapper\OrmBenchmarks.Dapper.csproj", "{FB49C182-FC9B-4A95-AB2F-5BA9657C9357}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrmBenchmarks.Benchmarks", "OrmBenchmarks.Benchmarks\OrmBenchmarks.Benchmarks.csproj", "{6F9F334C-AB37-45D7-B761-59846694D0AE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{FB49C182-FC9B-4A95-AB2F-5BA9657C9357}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB49C182-FC9B-4A95-AB2F-5BA9657C9357}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB49C182-FC9B-4A95-AB2F-5BA9657C9357}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F9F334C-AB37-45D7-B761-59846694D0AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F9F334C-AB37-45D7-B761-59846694D0AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F9F334C-AB37-45D7-B761-59846694D0AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F9F334C-AB37-45D7-B761-59846694D0AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

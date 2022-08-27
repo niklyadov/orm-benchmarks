@@ -29,8 +29,22 @@ public class UsersService : AUsersService
         return await _repository.Update(user);
     }
 
+    public override Task<User> UpdateRandomAsync(User user)
+    {
+        var randomGeneratedUser = GenerateRandomUser();
+
+        randomGeneratedUser.Id = user.Id;
+
+        return UpdateAsync(randomGeneratedUser);
+    }
+
     public override async Task<User> DeleteAsync(User user)
     {
         return await _repository.Delete(user);
+    }
+
+    public override async Task<User> RestoreAsync(User user)
+    {
+        return await _repository.Restore(user);
     }
 }
