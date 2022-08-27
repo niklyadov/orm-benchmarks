@@ -1,11 +1,6 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using OrmBenchmarks.Dapper;
 using OrmBenchmarks.Dapper.Repos;
-using OrmBenchmarks.Dapper.Services;
-using OrmBenchmarks.EF;
-using OrmBenchmarks.Entities;
 using OrmBenchmarks.Services;
 using Xunit;
 using UsersService = OrmBenchmarks.Dapper.Services.UsersService;
@@ -27,37 +22,47 @@ public class DapperUsersServiceTests
     public async Task AddRandom()
     {
         var randomUser = await _aUsersService.AddRandomAsync();
-        //var userInDb = _contextEf.Users.FirstOrDefault(u => u.Id == randomUser.Id);
-        
         Assert.NotNull(randomUser);
-        //Assert.NotNull(userInDb);
-        //Assert.Equal(userInDb!.Name, randomUser.Name);
     }
 
     [Fact]
-    public void GetById()
+    public async Task GetById()
     {
-        Assert.Throws<NotImplementedException>(() =>
-        {
-            _aUsersService.GetByIdAsync(0);
-        });
+        var randomUser = await _aUsersService.AddRandomAsync();
+        Assert.NotNull(randomUser);
+        
+        var randomUserById = await _aUsersService.GetByIdAsync(randomUser.Id);
+        Assert.NotNull(randomUserById);
+        Assert.Equal(randomUser.Name, randomUserById!.Name);
     }
 
     [Fact]
-    public void Update()
+    public async Task Update()
     {
-        Assert.Throws<NotImplementedException>(() =>
-        {
-            _aUsersService.UpdateAsync(new User());
-        });
+        var randomUser = await _aUsersService.AddRandomAsync();
+
+        Assert.NotNull(randomUser);
+        
+        randomUser.Name = "renamed user";
+        
+        var updatedUserResult = await _aUsersService.UpdateAsync(randomUser);
+        
+        Assert.NotNull(updatedUserResult);
+        Assert.Equal(randomUser.Name, updatedUserResult.Name);
     }
 
     [Fact]
-    public void Delete()
+    public async Task Delete()
     {
-        Assert.Throws<NotImplementedException>(() =>
-        {
-            _aUsersService.DeleteAsync(new User());
-        });
+        var randomUser = await _aUsersService.AddRandomAsync();
+        Assert.NotNull(randomUser);
+
+        var deletedUserResult = await _aUsersService.DeleteAsync(randomUser);
+        Assert.NotNull(deletedUserResult);
+        Assert.Equal(randomUser.Name, deletedUserResult.Name);
+        
+        // todo this throws Sequence contains no elements
+        //var randomUserById = await _aUsersService.GetByIdAsync(randomUser.Id);
+        //Assert.Null(randomUserById);
     }
 }

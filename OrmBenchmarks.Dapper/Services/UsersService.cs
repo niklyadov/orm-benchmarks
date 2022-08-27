@@ -19,18 +19,18 @@ public class UsersService : AUsersService
         return await _repository.Add(user);
     }
 
-    public override Task<User?> GetByIdAsync(long id)
+    public override async Task<User?> GetByIdAsync(long id)
     {
-        throw new NotImplementedException();
+        return await _repository.GetById(id);
     }
 
-    public override Task<User> UpdateAsync(User user)
+    public override async Task<User> UpdateAsync(User user)
     {
-        throw new NotImplementedException();
+        return await _repository.Update(user);
     }
 
-    public override Task<User> DeleteAsync(User user)
+    public override async Task<User> DeleteAsync(User user)
     {
-        throw new NotImplementedException();
+        return await _repository.Delete(user);
     }
 }

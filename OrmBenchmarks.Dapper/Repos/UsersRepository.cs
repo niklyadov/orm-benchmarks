@@ -25,21 +25,41 @@ public class UsersRepository
     {
         using var connection = _context.CreateConnection();
 
+        return await connection.QuerySingleAsync<User>("SELECT * FROM Users u WHERE u.Id = @Id AND u.IsDeleted = false;", new {Id = id});
+    }
+    
+    public async Task<User> GetByIdDeletedAlso(long id)
+    {
+        using var connection = _context.CreateConnection();
+
         return await connection.QuerySingleAsync<User>("SELECT * FROM Users u WHERE u.Id = @Id;", new {Id = id});
     }
 
     public async Task<User> Update(User user)
     {
         using var connection = _context.CreateConnection();
-        
-        throw new NotImplementedException();
+
+        await connection.ExecuteAsync("UPDATE Users set Name = @Name, Age = @Age, IsDeleted = @IsDeleted, DeletedDateTime = @DeletedDateTime" +
+                                      " WHERE Users.Id = @Id AND Users.IsDeleted = false;", user);
+
+        return await GetByIdDeletedAlso(user.Id);
     }
 
     public async Task<User> Delete(User user)
     {
-        using var connection = _context.CreateConnection();
 
-        await connection.ExecuteAsync("");
-        throw new NotImplementedException();
+        user.IsDeleted = true;
+        user.DeletedDateTime = DateTime.UtcNow;
+        
+        return await Update(user);
+    }
+    
+    public async Task<User> Restore(User user)
+    {
+
+        user.IsDeleted = false;
+        user.DeletedDateTime = null;
+        
+        return await Update(user);
     }
 }
