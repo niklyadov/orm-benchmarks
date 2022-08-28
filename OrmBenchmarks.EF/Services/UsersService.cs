@@ -37,7 +37,7 @@ public class UsersService : AUsersService
         user.Age = randomGeneratedUser.Age;
         user.Name = randomGeneratedUser.Name;
 
-        return UpdateAsync(randomGeneratedUser);
+        return UpdateAsync(user);
     }
 
     public override async Task<User> DeleteAsync(User user)
