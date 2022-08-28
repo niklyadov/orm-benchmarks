@@ -14,6 +14,11 @@ public abstract class BaseRepository<TEntity, TContext> : IRepository<TEntity>, 
         _dbContext = dbContext;
     }
 
+    public void Dispose()
+    {
+        _dbContext.Dispose();
+    }
+
     public virtual async Task<List<TEntity>> GetAll(bool ignoreDeleted = true)
     {
         var set = _dbContext.Set<TEntity>().Where(p => !ignoreDeleted || !p.IsDeleted);
@@ -72,7 +77,7 @@ public abstract class BaseRepository<TEntity, TContext> : IRepository<TEntity>, 
     {
         if (entity.Id > 0 && await GetById(entity.Id) != null)
             return await Update(entity);
-        
+
         return await Add(entity);
     }
 
@@ -80,7 +85,7 @@ public abstract class BaseRepository<TEntity, TContext> : IRepository<TEntity>, 
     {
         return await _dbContext.SaveChangesAsync();
     }
-    
+
     public virtual async Task<TEntity> Delete(TEntity entity)
     {
         if (entity == null)
@@ -135,10 +140,5 @@ public abstract class BaseRepository<TEntity, TContext> : IRepository<TEntity>, 
         }
 
         return await Update(entities);
-    }
-
-    public void Dispose()
-    {
-        _dbContext.Dispose();
     }
 }

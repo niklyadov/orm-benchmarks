@@ -1,5 +1,4 @@
 ﻿using FluentMigrator.Runner;
-using OrmBenchmarks.Dapper.Migrations;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -14,7 +13,7 @@ public static class MigrationManager
 
         migrationService.ListMigrations();
         migrationService.MigrateUp(202106280001);
-        
+
         return host;
     }
 }

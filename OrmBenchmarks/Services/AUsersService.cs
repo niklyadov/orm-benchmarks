@@ -10,7 +10,7 @@ public abstract class AUsersService
     public abstract Task<User> UpdateRandomAsync(User user);
     public abstract Task<User> DeleteAsync(User user);
     public abstract Task<User> RestoreAsync(User user);
-    
+
     protected User GenerateRandomUser()
     {
         var random = new Random();
@@ -21,5 +21,4 @@ public abstract class AUsersService
             Name = Guid.NewGuid().ToString()
         };
     }
-
 }

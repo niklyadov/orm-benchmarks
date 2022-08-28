@@ -5,14 +5,14 @@ using Perfolizer.Horology;
 
 BenchmarkRunner.Run(typeof(Program).Assembly, new Config());
 
-class Config : ManualConfig
+internal class Config : ManualConfig
 {
     public Config()
     {
         Add(new Job("MySuperJob", RunMode.Short)
-            {
-                Run = { LaunchCount = 5, IterationTime = TimeInterval.Millisecond * 200 }
-            });
+        {
+            Run = { LaunchCount = 5, IterationTime = TimeInterval.Millisecond * 200 }
+        });
         Add(DefaultConfig.Instance.GetExporters().ToArray());
         Add(DefaultConfig.Instance.GetLoggers().ToArray());
         Add(DefaultConfig.Instance.GetColumnProviders().ToArray());

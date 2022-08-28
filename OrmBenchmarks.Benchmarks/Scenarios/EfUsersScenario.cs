@@ -13,7 +13,7 @@ public class EfUsersScenario : BaseUserScenario
     public EfUsersScenario() : base(new UsersService(new UsersRepository(new EfApplicationContext())))
     {
     }
-    
+
     [Benchmark]
     public override Task<User> AddRandomUserAsync()
     {
@@ -31,7 +31,7 @@ public class EfUsersScenario : BaseUserScenario
     {
         return base.AddRandomUserAndUpdateAsync();
     }
-    
+
     [Benchmark]
     public override Task<User> AddRandomUserAndDeleteAndRestoreAsync()
     {

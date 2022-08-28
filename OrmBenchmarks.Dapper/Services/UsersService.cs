@@ -7,11 +7,12 @@ namespace OrmBenchmarks.Dapper.Services;
 public class UsersService : AUsersService
 {
     private readonly UsersRepository _repository;
+
     public UsersService(UsersRepository repository)
     {
         _repository = repository;
     }
-    
+
     public override async Task<User> AddRandomAsync()
     {
         var user = GenerateRandomUser();

@@ -31,7 +31,7 @@ public class DapperUsersScenario : BaseUserScenario
     {
         return base.AddRandomUserAndUpdateAsync();
     }
-    
+
     [Benchmark]
     public override Task<User> AddRandomUserAndDeleteAndRestoreAsync()
     {

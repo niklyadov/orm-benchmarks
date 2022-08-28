@@ -21,18 +21,17 @@ public abstract class BaseUserScenario
     {
         return await Service.DeleteAsync(await AddRandomUserAsync());
     }
-    
+
     public virtual async Task<User> AddRandomUserAndDeleteAndRestoreAsync()
     {
         return await Service.RestoreAsync(await AddRandomUserAndDeleteAsync());
     }
-    
+
     public virtual async Task<User> AddRandomUserAndUpdateAsync()
     {
         return await Service.UpdateRandomAsync(await AddRandomUserAsync());
-
     }
-    
+
     public virtual async Task<User> AddRandomUserAndFindByIdAsync()
     {
         var user = await AddRandomUserAsync();
