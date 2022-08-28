@@ -33,7 +33,8 @@ public class UsersService : AUsersService
     {
         var randomGeneratedUser = GenerateRandomUser();
 
-        randomGeneratedUser.Id = user.Id;
+        user.Age = randomGeneratedUser.Age;
+        user.Name = randomGeneratedUser.Name;
 
         return UpdateAsync(randomGeneratedUser);
     }

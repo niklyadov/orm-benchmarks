@@ -12,28 +12,28 @@ public abstract class BaseUserScenario
         Service = service;
     }
 
-    protected async Task<User> AddRandomUserAsync()
+    public virtual async Task<User> AddRandomUserAsync()
     {
         return await Service.AddRandomAsync();
     }
 
-    protected async Task<User> AddRandomUserAndDeleteAsync()
+    public virtual async Task<User> AddRandomUserAndDeleteAsync()
     {
         return await Service.DeleteAsync(await AddRandomUserAsync());
     }
     
-    protected async Task<User> AddRandomUserAndDeleteAndRestoreAsync()
+    public virtual async Task<User> AddRandomUserAndDeleteAndRestoreAsync()
     {
         return await Service.RestoreAsync(await AddRandomUserAndDeleteAsync());
     }
     
-    protected async Task<User> AddRandomUserAndUpdateAsync()
+    public virtual async Task<User> AddRandomUserAndUpdateAsync()
     {
         return await Service.UpdateRandomAsync(await AddRandomUserAsync());
 
     }
     
-    protected async Task<User> AddRandomUserAndFindByIdAsync()
+    public virtual async Task<User> AddRandomUserAndFindByIdAsync()
     {
         var user = await AddRandomUserAsync();
 

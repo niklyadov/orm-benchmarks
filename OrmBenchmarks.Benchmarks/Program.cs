@@ -1,31 +1,20 @@
-﻿using BenchmarkDotNet.Attributes;
+﻿using BenchmarkDotNet.Configs;
+using BenchmarkDotNet.Jobs;
 using BenchmarkDotNet.Running;
-using OrmBenchmarks.Benchmarks.Scenarios;
+using Perfolizer.Horology;
 
-var summary = BenchmarkRunner.Run(typeof(Program).Assembly);
+BenchmarkRunner.Run(typeof(Program).Assembly, new Config());
 
-public class DapperVsEntityFramework
+class Config : ManualConfig
 {
-    public DapperVsEntityFramework()
+    public Config()
     {
-        Console.WriteLine("Call");
-    }
-
-    [Benchmark]
-    public void Dapper()
-    {
-        Task.Run(async () =>
-        {
-            await new DapperUsersScenario().DoAsync();
-        });
-    }
-    
-    [Benchmark]
-    public void EntityFramework()
-    {
-        Task.Run(async () =>
-        {
-            await new EfUsersScenario().DoAsync();
-        });
+        Add(new Job("MySuperJob", RunMode.Short)
+            {
+                Run = { LaunchCount = 5, IterationTime = TimeInterval.Millisecond * 200 }
+            });
+        Add(DefaultConfig.Instance.GetExporters().ToArray());
+        Add(DefaultConfig.Instance.GetLoggers().ToArray());
+        Add(DefaultConfig.Instance.GetColumnProviders().ToArray());
     }
 }
