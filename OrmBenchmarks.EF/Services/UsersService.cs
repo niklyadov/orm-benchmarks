@@ -7,18 +7,19 @@ namespace OrmBenchmarks.EF.Services;
 public class UsersService : AUsersService
 {
     private readonly UsersRepository _repository;
+
     public UsersService(UsersRepository repository)
     {
         _repository = repository;
     }
-    
+
     public override async Task<User> AddRandomAsync()
     {
         var user = GenerateRandomUser();
 
         return await _repository.Add(user);
     }
-    
+
     public override async Task<User?> GetByIdAsync(long id)
     {
         return await _repository.GetById(id);
